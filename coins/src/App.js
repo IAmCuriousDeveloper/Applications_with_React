@@ -1,11 +1,11 @@
 import React from "react";
-import logo from "./logo.svg";
+import CoinContainer from "./CoinContainer";
 import "./App.css";
 
 function App() {
   return (
     <div className='App'>
-      <p>i am a coin conatiner</p>
+      <CoinContainer />
     </div>
   );
 }
