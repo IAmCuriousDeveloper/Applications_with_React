@@ -3,10 +3,11 @@ import Ball from "./Ball";
 import "./Lottery.css";
 export default class Lottery extends Component {
   static defaultProps = {
-    title: "Lotto",
+    title: "Lottery",
     numBalls: 6,
-    maxNum: 40
+    maxNum: 50
   };
+
   constructor(props) {
     super(props);
 
@@ -16,14 +17,20 @@ export default class Lottery extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   generate() {
-    this.setState(currState => ({
-      nums: currState.nums.map(
-        n => Math.floor(Math.random() * this.props.maxNum) + 1
-      )
-    }));
+    this.setState(
+      currState => ({
+        nums: currState.nums.map(
+          n => Math.floor(Math.random() * this.props.maxNum) + 1
+        )
+      }),
+      () => {
+        if (this.props.title === "Lottery") {
+          this.props.setMatch(this.state.nums);
+        }
+      }
+    );
   }
-
-  handleClick() {
+  handleClick(e) {
     this.generate();
   }
 
