@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import Ball from "./Ball";
 import "./Lottery.css";
-export default class Lottery extends Component {
+import Compare from "./helper";
+import "./MyLottery.css";
+
+export default class MyLottery extends Component {
   constructor(props) {
     super(props);
 
@@ -18,13 +21,11 @@ export default class Lottery extends Component {
         )
       }),
       () => {
-        if (this.props.title === "Lottery") {
-          this.props.setMatch(this.state.nums);
-        }
+        const won = Compare(this.props.match, this.state.nums);
+        if (won) this.props.setWinner();
       }
     );
   }
-  //for main lottery component
   handleClick(e) {
     this.generate();
   }
@@ -42,6 +43,8 @@ export default class Lottery extends Component {
           <button onClick={this.handleClick} disabled={this.props.isWinner}>
             Generate
           </button>
+          <h1 className='glow'>YOU WON!!!</h1>
+          <button onClick={this.props.setWinner}>Play Again ?</button>
         </section>
       );
     } else {
