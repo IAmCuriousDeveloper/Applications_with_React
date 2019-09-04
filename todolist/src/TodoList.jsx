@@ -9,7 +9,7 @@ export default class TodoList extends Component {
     this.state = {
       todos: []
     };
-    this.create - this.create.bind(this);
+    this.create = this.create.bind(this);
     this.remove = this.remove.bind(this);
     this.update = this.update.bind(this);
     this.toggleCompletion = this.toggleCompletion.bind(this);
@@ -41,6 +41,7 @@ export default class TodoList extends Component {
       }
       return todo;
     });
+    this.setState({ todos: updatedTodos });
   }
 
   render() {

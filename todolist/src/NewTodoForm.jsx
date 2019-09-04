@@ -8,7 +8,7 @@ export default class NewTodoForm extends Component {
     this.state = {
       task: ""
     };
-    this.handleChange = this.handlechange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -30,7 +30,7 @@ export default class NewTodoForm extends Component {
           type='text'
           placeholder='New Todo'
           id='task'
-          namd='task'
+          name='task'
           value={this.state.task}
           onChange={this.handleChange}
         />
