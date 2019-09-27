@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import NewTodoForm from "./NewTodoForm";
 import Todo from "./Todo";
 export default class TodoList extends Component {
@@ -47,25 +46,22 @@ export default class TodoList extends Component {
   render() {
     const todos = this.state.todos.map(todo => {
       return (
-        <CSSTransition key={todo.id} timeout={500} classNames='todo'>
-          <Todo
-            key={todo.id}
-            id={todo.id}
-            completed={todo.completed}
-            removeTodo={this.remove}
-            updateTodo={this.updateTodo}
-            toggleTodo={this.toggleCompletion}
-          ></Todo>
-        </CSSTransition>
+        <Todo
+          key={todo.id}
+          id={todo.id}
+          task={todo.task}
+          completed={todo.completed}
+          removeTodo={this.remove}
+          updateTodo={this.updateTodo}
+          toggleTodo={this.toggleCompletion}
+        ></Todo>
       );
     });
     return (
       <div className='TodoList'>
         <h1>Get you work done ,You can do it</h1>
         <NewTodoForm createTodo={this.create} />
-        <ul>
-          <TransitionGroup className='todo-List'>{todos}</TransitionGroup>
-        </ul>
+        <ul className='todo-List'>{todos} </ul>
       </div>
     );
   }
