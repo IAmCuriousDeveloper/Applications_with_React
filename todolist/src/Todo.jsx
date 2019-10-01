@@ -1,60 +1,72 @@
 import React, { Component } from "react";
+import "./Todo.css";
 export default class Todo extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isEditing: false,
-      task: this.props.task
+      task: this.props.task,
+      completed: this.props.completed
     };
+    this.handleRemove = this.handleRemove.bind(this);
+    this.toggleForm = this.toggleForm.bind(this);
+    this.ChangeInputText = this.ChangeInputText.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.toggleTask = this.toggleTask.bind(this);
   }
-  handleRemove() {
-    this.props.removeTodo(this.props.id);
+  handleRemove(e) {
+    this.props.remove(this.props.id);
   }
-  toggleFrom() {
-    this.setState({ isEditing: !this.state.isEditing });
-  }
-  handleUpdate(evt) {
-    evt.preventDefault();
-    this.props.updateTodo(this.props.id, this.state.task);
-    this.setState({ isEditing: false });
-  }
-  handleChange(evt) {
+  handleUpdate(e) {
+    e.preventDefault();
+    this.props.update(this.props.id, this.state.task);
+    //after editing set isEditing to false again
     this.setState({
-      [evt.target.name]: evt.target.value
+      isEditing: false
     });
   }
-  handleToggle(evt) {
-    this.props.toggleTodo(this.props.id);
+  toggleForm() {
+    this.setState({ isEditing: !this.state.isEditing });
+  }
+  ChangeInputText(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+  toggleTask(e) {
+    this.setState({ completed: !this.state.completed });
   }
   render() {
-    let result;
+    let Result;
     if (this.state.isEditing) {
-      result = (
-        <form className='todo-edit-form' onSubmit={this.handleUpdate}>
+      Result = (
+        <form onSubmit={this.handleUpdate}>
+          <label htmlFor='task'></label>
           <input
             type='text'
-            value={this.state.task}
             name='task'
-            onChange={this.handleChange}
+            id='task'
+            value={this.state.task}
+            onChange={this.ChangeInputText}
           />
-          <button>Save</button>
+          <button>Submit</button>
         </form>
       );
     } else {
-      result = (
-        <li className='Todo-task' onClick={this.handleToggle}>
-          {this.props.task}
-        </li>
+      Result = (
+        <div>
+          <button onClick={this.toggleForm}>Edit</button>
+          <button onClick={this.handleRemove}>X</button>
+          <li
+            onClick={this.toggleTask}
+            className={this.state.completed ? "completed" : ""}
+          >
+            {this.props.task}
+          </li>
+        </div>
       );
     }
-
-    return (
-      <div className={this.props.completed ? "Todo Completed" : "Todo"}>
-        {result}
-        <button onClick={this.toggleForm}>update</button>
-        <button onClick={this.handleRemove}>X</button>
-      </div>
-    );
+    return Result;
   }
 }

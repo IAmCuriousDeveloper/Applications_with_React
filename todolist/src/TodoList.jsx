@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NewTodoForm from "./NewTodoForm";
 import Todo from "./Todo";
-export default class TodoList extends Component {
+class TodoList extends Component {
   constructor(props) {
     super(props);
 
@@ -11,58 +11,47 @@ export default class TodoList extends Component {
     this.create = this.create.bind(this);
     this.remove = this.remove.bind(this);
     this.update = this.update.bind(this);
-    this.toggleCompletion = this.toggleCompletion.bind(this);
   }
-  create(newTodo) {
-    this.setState({
-      todos: [...this.state.todos, newTodo]
-    });
+  create(task) {
+    let updatedTodos = [...this.state.todos, task];
+    this.setState({ todos: updatedTodos });
   }
   remove(id) {
+    let updatedTodos = this.state.todos.filter(todo => todo.id !== id);
     this.setState({
-      todos: this.state.todos.filter(t => t.id !== id)
+      todos: updatedTodos
     });
   }
-  update(id, updatedTask) {
-    const updatedTodos = this.state.todos.map(todo => {
+  update(id, updatedtask) {
+    let updatedTodos = this.state.todos.map(todo => {
       if (todo.id === id) {
-        return { ...todo, task: updatedTask };
+        return { ...todo, task: updatedtask };
       }
       return todo;
     });
-    this.setState({ todos: updatedTodos });
-  }
-
-  toggleCompletion(id) {
-    const updatedTodos = this.state.todos.map(todo => {
-      if (todo.id === id) {
-        return { ...todo, completed: !todo.completed };
-      }
-      return todo;
+    this.setState({
+      todos: updatedTodos
     });
-    this.setState({ todos: updatedTodos });
   }
-
   render() {
-    const todos = this.state.todos.map(todo => {
-      return (
-        <Todo
-          key={todo.id}
-          id={todo.id}
-          task={todo.task}
-          completed={todo.completed}
-          removeTodo={this.remove}
-          updateTodo={this.updateTodo}
-          toggleTodo={this.toggleCompletion}
-        ></Todo>
-      );
-    });
+    const todos = this.state.todos.map(todo => (
+      <Todo
+        remove={this.remove}
+        task={todo.task}
+        id={todo.id}
+        key={todo.id}
+        update={this.update}
+        completed={todo.completed}
+      />
+    ));
     return (
-      <div className='TodoList'>
-        <h1>Get you work done ,You can do it</h1>
-        <NewTodoForm createTodo={this.create} />
-        <ul className='todo-List'>{todos} </ul>
+      <div>
+        <h1>TodoList</h1>
+        <ul>{todos}</ul>
+        <NewTodoForm create={this.create} />
       </div>
     );
   }
 }
+
+export default TodoList;
