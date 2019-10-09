@@ -3,6 +3,7 @@ import Dice from "./Dice";
 import ScoreTable from "./ScoreTable";
 import "./Game.css";
 
+// no. of dice and rolls are fixed
 const NUM_DICE = 5;
 const NUM_ROLLS = 3;
 
@@ -10,9 +11,13 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      //empty array of length 5
       dice: Array.from({ length: NUM_DICE }),
+      // making new array with false filled in all
       locked: Array(NUM_DICE).fill(false),
+      // pre assign the rolls left to 3
       rollsLeft: NUM_ROLLS,
+
       scores: {
         ones: undefined,
         twos: undefined,
@@ -37,9 +42,11 @@ class Game extends Component {
   roll(evt) {
     // roll dice whose indexes are in reroll
     this.setState(st => ({
+      //take every dice from array dice then check if the value of that index in locked array is true/false then take decision
       dice: st.dice.map((d, i) =>
         st.locked[i] ? d : Math.ceil(Math.random() * 6)
       ),
+      // if we have rolls left then just pass the previous loacked otherwise fill locked with true
       locked: st.rollsLeft > 1 ? st.locked : Array(NUM_DICE).fill(true),
       rollsLeft: st.rollsLeft - 1
     }));
@@ -47,6 +54,7 @@ class Game extends Component {
 
   toggleLocked(idx) {
     // toggle whether idx is in locked or not
+    //using callback function with setState
     this.setState(st => ({
       locked: [
         ...st.locked.slice(0, idx),
@@ -81,6 +89,7 @@ class Game extends Component {
             <div className='Game-button-wrapper'>
               <button
                 className='Game-reroll'
+                // if all the values are true or all the values are false then disable the button
                 disabled={this.state.locked.every(x => x)}
                 onClick={this.roll}
               >
