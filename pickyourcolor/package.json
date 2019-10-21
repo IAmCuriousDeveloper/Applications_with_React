@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-preset-react-app": "^9.0.2",
     "react": "^16.10.2",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0"
   },
