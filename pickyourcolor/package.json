@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "babel-preset-react-app": "^9.0.2",
+    "chroma-js": "^2.0.6",
     "react": "^16.10.2",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.10.2",
