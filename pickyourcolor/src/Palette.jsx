@@ -7,7 +7,7 @@ import "rc-slider/assets/index.css";
 export default class Palette extends Component {
   constructor(props) {
     super(props);
-
+    // default level 500
     this.state = {
       level: 500
     };
@@ -18,14 +18,14 @@ export default class Palette extends Component {
   }
 
   render() {
-    const { level } = this.state.level;
-    const { colors } = this.props.palette.colors;
+    const { level } = this.state;
+    const { colors } = this.props.palette;
     const colorBoxes = colors[level].map(color => (
       <ColorBox key={color.name} background={color.hex} name={color.name} />
     ));
 
     return (
-      <div className='Palette'>
+      <div className="Palette">
         <Slider
           defaultValue={level}
           min={100}
@@ -33,7 +33,7 @@ export default class Palette extends Component {
           step={100}
           onAfterChange={this.changeLevel}
         />
-        <div className='Palette-colors'>{colorBoxes}</div>
+        <div className="Palette-colors">{colorBoxes}</div>
       </div>
     );
   }

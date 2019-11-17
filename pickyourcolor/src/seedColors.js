@@ -1,3 +1,4 @@
+//predefined colors for use
 export default [
   {
     paletteName: "Material UI Colors",

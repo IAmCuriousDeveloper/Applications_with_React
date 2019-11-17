@@ -3,7 +3,7 @@ import seedColors from "./seedColors";
 import Palette from "./Palette";
 import { generatePalette } from "./colorHelpers";
 function App() {
-  console.log();
+  // generate palette just take any palette and convert it into new palette with different shades
   return (
     <div>
       <Palette palette={generatePalette(seedColors[6])} />
