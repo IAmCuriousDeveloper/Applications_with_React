@@ -37,18 +37,17 @@ export default class Navbar extends Component {
           <a href="#">PickYourColor</a>
         </div>
         <div className="slider-container">
-          <div>
-            <span>level:{level}</span>
-            <div className="slider">
-              <Slider
-                defaultValue={level}
-                min={100}
-                max={900}
-                step={100}
-                onAfterChange={changeLevel}
-              />
-            </div>
+          <span>level:{level}</span>
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              onAfterChange={changeLevel}
+            />
           </div>
+
           <div className="select-container">
             <Select
               value={this.state.format}
