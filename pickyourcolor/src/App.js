@@ -3,6 +3,7 @@ import seedColors from "./seedColors";
 import Palette from "./Palette";
 import { Route, Switch } from "react-router-dom";
 import { generatePalette } from "./colorHelpers";
+import PaletteList from "./PaletteList";
 // generate palette just take any palette and convert it into new palette with different shades
 
 class App extends React.Component {
@@ -14,7 +15,11 @@ class App extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" render={() => <h1>palette list</h1>} />
+        <Route
+          exact
+          path="/"
+          render={() => <PaletteList palette={seedColors} />}
+        />
         <Route
           exact
           path="/palette/:id"
