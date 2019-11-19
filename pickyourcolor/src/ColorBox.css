@@ -9,6 +9,14 @@
   border-radius: 5%;
 }
 
+.SingleColorPalette .ColorBox {
+  height: 50%;
+}
+
+/* with spaces between the classes means the class inside class / with both class togeather means they both should present */
+.ColorBox.go-back {
+  background-color: black;
+}
 .copy-button {
   width: 100px;
   height: 30px;
@@ -26,6 +34,29 @@
   color: white;
   text-transform: uppercase;
   border: none;
+  opacity: 0;
+}
+.copy-button.back-button {
+  opacity: 1;
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -15px;
+  text-align: center;
+  outline: none;
+  background: rgba(255, 255, 255, 0.3);
+  font-size: 1rem;
+  line-height: 30px;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  text-decoration: none;
+}
+.copy-button {
   opacity: 0;
 }
 /* hover on copy button but style on copy-button */
