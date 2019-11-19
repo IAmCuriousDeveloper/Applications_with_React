@@ -31,7 +31,7 @@ export default class Navbar extends Component {
 
   render() {
     const { format } = this.state;
-    const { level, changeLevel } = this.props;
+    const { level, changeLevel, showingAllColors } = this.props;
     return (
       <header className="Navbar">
         <div className="logo">
@@ -39,29 +39,28 @@ export default class Navbar extends Component {
             PickYourColor
           </Link>
         </div>
-        <div className="slider-container">
-          <span>level:{level}</span>
-          <div className="slider">
-            <Slider
-              defaultValue={level}
-              min={100}
-              max={900}
-              step={100}
-              onAfterChange={changeLevel}
-            />
+        {showingAllColors && (
+          <div className="slider-container">
+            <span>level:{level}</span>
+            <div className="slider">
+              <Slider
+                defaultValue={level}
+                min={100}
+                max={900}
+                step={100}
+                onAfterChange={changeLevel}
+              />
+            </div>
           </div>
-
-          <div className="select-container">
-            <Select
-              value={this.state.format}
-              onChange={this.handleFormatChange}
-            >
-              <MenuItem value="hex">Hex - #ffffff</MenuItem>
-              <MenuItem value="rgb">RGB- rgb(255,255,255)</MenuItem>
-              <MenuItem value="rgba">RGBA - rgba(255,255,255,1.0)</MenuItem>
-            </Select>
-          </div>
+        )}
+        <div className="select-container">
+          <Select value={this.state.format} onChange={this.handleFormatChange}>
+            <MenuItem value="hex">Hex - #ffffff</MenuItem>
+            <MenuItem value="rgb">RGB- rgb(255,255,255)</MenuItem>
+            <MenuItem value="rgba">RGBA - rgba(255,255,255,1.0)</MenuItem>
+          </Select>
         </div>
+
         <Snackbar
           anchorOrigin={{ vertical: "Bottom", horizontal: "left" }}
           open={this.state.open}
