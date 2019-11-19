@@ -4,6 +4,7 @@ import Palette from "./Palette";
 import { Route, Switch } from "react-router-dom";
 import { generatePalette } from "./colorHelpers";
 import PaletteList from "./PaletteList";
+import SingleColorPalette from "./SingleColorPalette";
 // generate palette just take any palette and convert it into new palette with different shades
 
 class App extends React.Component {
@@ -32,6 +33,11 @@ class App extends React.Component {
               )}
             />
           )}
+        />
+        <Route
+          exact
+          path="/palette/:paletteId/:colorId"
+          render={() => <SingleColorPalette />}
         />
       </Switch>
       // <div>
