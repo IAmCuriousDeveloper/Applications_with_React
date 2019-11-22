@@ -78,16 +78,27 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+//this component use hooks
 function NewPaletteForm() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [currentColor, setCurrentColor] = React.useState("goldenrod");
+  const [colors, setColors] = React.useState(["purple", "#e15764"]);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const updateCurrentColor = newColor => {
+    setCurrentColor(newColor.hex);
+  };
+
+  const addNewColor = () => {
+    setColors([...colors, currentColor]);
   };
 
   return (
@@ -143,10 +154,15 @@ function NewPaletteForm() {
           </Button>
         </div>
         <ChromePicker
-          color="goldenrod"
-          onChangeComplete={newColor => console.log(newColor)}
+          color={currentColor}
+          onChangeComplete={updateCurrentColor}
         />
-        <Button varient="contained" color="primary">
+        <Button
+          style={{ backgroundColor: currentColor }}
+          varient="contained"
+          color="primary"
+          onClick={addNewColor}
+        >
           Add Color
         </Button>
       </Drawer>
@@ -156,6 +172,11 @@ function NewPaletteForm() {
         })}
       >
         <div className={classes.drawerHeader} />
+        <ul>
+          {colors.map(color => {
+            return <li style={{ backgroundColor: color }}>{color}</li>;
+          })}
+        </ul>
       </main>
     </div>
   );
