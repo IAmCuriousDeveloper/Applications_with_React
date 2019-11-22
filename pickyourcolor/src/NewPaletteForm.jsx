@@ -12,13 +12,15 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import Button from "@material-ui/core/Button";
 // import ListItem from "@material-ui/core/ListItem";
 // import ListItemIcon from "@material-ui/core/ListItemIcon";
 // import ListItemText from "@material-ui/core/ListItemText";
 // import InboxIcon from "@material-ui/icons/MoveToInbox";
 // import MailIcon from "@material-ui/icons/Mail";
+import { ChromePicker } from "react-color";
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -131,7 +133,22 @@ function NewPaletteForm() {
           </IconButton>
         </div>
         <Divider />
-        <Divider />
+        <Typography varient="h4"> Design Your Palette</Typography>
+        <div>
+          <Button varient="contained" color="secondary">
+            Clear Palette
+          </Button>
+          <Button varient="contained" color="primary">
+            Random color
+          </Button>
+        </div>
+        <ChromePicker
+          color="goldenrod"
+          onChangeComplete={newColor => console.log(newColor)}
+        />
+        <Button varient="contained" color="primary">
+          Add Color
+        </Button>
       </Drawer>
       <main
         className={clsx(classes.content, {
