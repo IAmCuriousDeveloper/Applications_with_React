@@ -19,6 +19,7 @@ import Button from "@material-ui/core/Button";
 // import InboxIcon from "@material-ui/icons/MoveToInbox";
 // import MailIcon from "@material-ui/icons/Mail";
 import { ChromePicker } from "react-color";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import DraggableColorBox from "./DraggableColorBox";
 
 const drawerWidth = 400;
@@ -81,12 +82,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 //this component use hooks
-function NewPaletteForm() {
+function NewPaletteForm(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [currentColor, setCurrentColor] = React.useState("goldenrod");
-  const [colors, setColors] = React.useState(["purple", "#e15764"]);
+  const [colors, setColors] = React.useState([]);
+  const [newName, setNewName] = React.useState(" ");
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -100,7 +103,43 @@ function NewPaletteForm() {
   };
 
   const addNewColor = () => {
-    setColors([...colors, currentColor]);
+    const newColor = { color: currentColor, name: newName };
+    setColors([...colors, newColor]);
+    setNewName("");
+  };
+
+  const handleChange = e => {
+    setNewName(e.target.value);
+  };
+
+  // React.useEffect(() => {
+  //   ValidatorForm.addValidationRule("isColorNameUnique", value => {
+  //     colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase());
+  //   });
+
+  //   return function cleanUp() {
+  //     ValidatorForm.removeValidationRule("isColorNameUnique");
+  //   };
+  // });
+
+  // React.useEffect(() => {
+  //   ValidatorForm.addValidationRule("isColorUnique", value => {
+  //     colors.every(({ color }) => color !== currentColor);
+  //   });
+  //   return () => {
+  //     ValidatorForm.removeValidationRule("isColorUnique");
+  //   };
+  // });
+
+  const handleSubmit = () => {
+    let newName = "new test Palette";
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLowerCase().replace(/ /g, "-"),
+      colors: colors
+    };
+    props.savePalette(newPalette);
+    props.history.push("/");
   };
 
   return (
@@ -108,6 +147,7 @@ function NewPaletteForm() {
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="default"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}
@@ -125,6 +165,9 @@ function NewPaletteForm() {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
+          <Button color="secondary" onClick={handleSubmit} varient="contained">
+            save palette
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -159,14 +202,22 @@ function NewPaletteForm() {
           color={currentColor}
           onChangeComplete={updateCurrentColor}
         />
-        <Button
-          style={{ backgroundColor: currentColor }}
-          varient="contained"
-          color="primary"
-          onClick={addNewColor}
-        >
-          Add Color
-        </Button>
+        <ValidatorForm onSubmit={addNewColor}>
+          <TextValidator
+            value={newName}
+            onChange={handleChange}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
+          />
+          <Button
+            type="submit"
+            style={{ backgroundColor: currentColor }}
+            varient="contained"
+            color="primary"
+          >
+            Add Color
+          </Button>
+        </ValidatorForm>
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -176,7 +227,7 @@ function NewPaletteForm() {
         <div className={classes.drawerHeader} />
 
         {colors.map(color => {
-          return <DraggableColorBox color={color} />;
+          return <DraggableColorBox color={color.color} name={color.name} />;
         })}
       </main>
     </div>
