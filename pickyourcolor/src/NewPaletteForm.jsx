@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -89,7 +89,7 @@ function NewPaletteForm(props) {
   const [currentColor, setCurrentColor] = React.useState("goldenrod");
   const [colors, setColors] = React.useState([]);
   const [newName, setNewName] = React.useState(" ");
-
+  const [newPaletteName, setNewPaletteName] = React.useState(" ");
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -130,7 +130,7 @@ function NewPaletteForm(props) {
   //     ValidatorForm.removeValidationRule("isColorUnique");
   //   };
   // });
-
+  const newPaletteName = () => {};
   const handleSubmit = () => {
     let newName = "new test Palette";
     const newPalette = {
@@ -165,6 +165,11 @@ function NewPaletteForm(props) {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
+          <TextValidator
+            value={newPaletteName}
+            label="Palette Name"
+            onChange={handleChange}
+          ></TextValidator>
           <Button color="secondary" onClick={handleSubmit} varient="contained">
             save palette
           </Button>
